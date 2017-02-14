@@ -1,0 +1,43 @@
+How to use the license tool:
+
+- To add a BB license:
+addlicense.exe file:licenses.nsi add bbuser:<username> bbpass:<password> serial:<guildCardNumber> priv:<privileges>
+
+- To add a DC/PC/GC license:
+addlicense.exe file:licenses.nsi add serial:<serialNumber> access:<accessKey> pass:<password> priv:<privileges>
+
+- To add a combined license:
+addlicense.exe file:licenses.nsi add bbuser:<username> bbpass:<bbPassword> serial:<serialNumber> access:<accessKey> pass:<gcPassword> priv:<privileges>
+
+- To delete a license:
+addlicense.exe file:<filename> delete find:serial:<serialNumber>
+addlicense.exe file:<filename> delete find:bbuser:<username>
+
+- To change a password:
+addlicense.exe file:<filename> modify find:serial:<serialNumber> pass:<newPassword>
+addlicense.exe file:<filename> modify find:bbuser:<username> pass:<newPassword>
+
+- To unban a license:
+addlicense.exe file:<filename> unban find:serial:<serialNumber>
+addlicense.exe file:<filename> unban find:bbuser:<username>
+
+- To display a license:
+addlicense.exe file:<filename> info find:serial:<serialNumber>
+addlicense.exe file:<filename> info find:bbuser:<username>
+
+What to put in the <privilege> field:
+Just add these together to get the privileges you want:
+
+PRIVILEGE_KICK_USER           0x00000001 # Allows user to kick other users, unless they have this privilege also
+PRIVILEGE_BAN_USER            0x00000002 # Allows user to ban other users, unless they have this privilege also
+PRIVILEGE_STFU_USER           0x00000004 # Allows user to STFU other users, unless they have this privilege also
+PRIVILEGE_CHANGE_LOBBY_INFO   0x00000010 # Allows user to change the lobby type and enable/disable hack protection in the lobby
+PRIVILEGE_CHANGE_EVENT        0x00000020 # Allows user to change the lobby event
+PRIVILEGE_ANNOUNCE            0x00000040 # Allows user to make announcements and use the $ax command
+PRIVILEGE_FREE_JOIN_GAMES     0x00000100 # Allows user to join locked games and ignore level restrictions
+PRIVILEGE_UNLOCK_GAMES        0x00000200 # Allows user to unlock games
+PRIVILEGE_HIGHER_LEVEL        0x01000000 # Allows user to kick/ban/STFU users who also have those privileges
+PRIVILEGE_IMMUNITY            0x02000000 # Unused, as far as I can tell
+
+A root admin (Creator) can use 0xFFFFFFFF in the privilege field.
+Moderators should have something like 0x00000327.
